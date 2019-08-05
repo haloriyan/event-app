@@ -31,6 +31,12 @@
             <span>Settings</span>
         </li>
     </a>
+    <a href="{{ route('user.payments') }}">
+        <li class="{{ (Route::currentRouteName() == 'user.payments') ? 'active' : 'none' }}">
+            <div class="icon"><i class="fas fa-money-bill-alt"></i></div>
+            <span>Payment</span>
+        </li>
+    </a>
     <li>
         <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
         <span>Log Out</span>

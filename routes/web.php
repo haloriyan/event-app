@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UserController@index')->name('user.index');
 
 // Auth::routes();
 
@@ -32,6 +30,7 @@ Route::group(['prefix' => 'event'], function() {
     Route::get('create', 'EventController@create')->name('event.create');
     Route::post('store', 'EventController@store')->name('event.store');
     Route::delete('{id}/delete', 'EventController@delete')->name('event.delete');
+    Route::get('/{id}', 'EventController@detail')->name('event.detail');
     
     Route::get('{id}/ticket', 'TicketController@info')->name('ticket.info');
     Route::get('{id}/create-ticket', 'TicketController@create')->name('ticket.create');
@@ -54,6 +53,12 @@ Route::group(['prefix' => 'category'], function() {
     Route::delete('{id}/delete', 'CategoryController@delete')->name('category.delete');
 });
 
+Route::group(['prefix' => 'payment'], function() {
+    Route::get('create', 'PaymentController@create')->name('payment.create');
+    Route::post('store', 'PaymentController@store')->name('payment.store');
+    Route::delete('{id}/delete', 'PaymentController@delete')->name('payment.delete');
+});
+
 Route::get('/login', 'UserController@loginPage')->name('user.loginPage');
 Route::post('/login', 'UserController@login')->name('user.login');
 Route::get('/register', 'UserController@registerPage')->name('user.registerPage');
@@ -62,3 +67,4 @@ Route::post('/register', 'UserController@register')->name('user.register');
 Route::get('/dashboard', 'UserController@dashboard')->name('user.dashboard')->middleware('User');
 Route::get('/events', 'UserController@eventsPage')->name('user.events')->middleware('User');
 Route::get('/settings', 'UserController@settingsPage')->name('user.settings')->middleware('User');
+Route::get('/payments', 'UserController@paymentsPage')->name('user.payments')->middleware('User');

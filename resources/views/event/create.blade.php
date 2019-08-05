@@ -35,7 +35,7 @@
             <div id="app">
                 <div class="mt-2">Category :</div>
                 <div class="p-1 pl-3 pr-3 bg-hijau-transparan pointer d-inline-block rounded-circle mt-2" v-for="cat in categories" @click="chooseCat">@{{ cat.category }}</div>
-                <input type="text" class="box" name="category" @input="searchCat" v-model="category" required>
+                <input type="text" class="box" name="category" @input="searchCat" id="category" v-model="category" required>
             </div>
         </div>
         
@@ -132,6 +132,7 @@ let app = new Vue({
                 this.selectedCategory += "," + val + ","
             }
             this.categories = []
+            document.querySelector("#category").focus()
         }
     },
     computed() {

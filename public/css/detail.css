@@ -1,0 +1,15 @@
+.container {
+    left: 5%;
+    right: 40%;
+}
+.container .cover {
+    height: 400px;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+.kanan {
+    position: fixed;
+    top: 130px;right: 5%;
+    width: 30%;
+}

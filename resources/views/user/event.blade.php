@@ -5,6 +5,9 @@
 <div class="bg-putih rounded bayangan-5 p-3">
     @if ($events->count() == 0)
         <h3>No event available</h3>
+        <a href="{{ route('event.create') }}">
+            <button class="biru mt-2">Create one</button>
+        </a>
     @else
         <table>
             <thead>

@@ -50,7 +50,7 @@ class TicketController extends Controller
         
         return redirect()->route('ticket.info', $eventId);
     }
-    public function deleteAll($eventId) {
+    public static function deleteAll($eventId) {
         $tick = Ticket::where('event_id', $eventId);
         $tick->delete();
 

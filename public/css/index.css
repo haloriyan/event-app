@@ -1,0 +1,56 @@
+.atas {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    line-height: 65px;
+    z-index: 1;
+}
+.atas .title {
+    font-size: 22px;
+    float: left;
+    margin: 0;
+    margin-left: 5%;
+}
+.atas .pencarian {
+    margin: 0;
+    margin-right: 5%;
+}
+.atas .pencarian .box {
+    border: none;
+    border-radius: 6px;
+    background-color: #2980b9;
+    color: #fff;
+    width: 88.5%;
+    padding: 1px 45px 1px 25px;
+}
+.atas .pencarian #cari {
+    margin-left: -40px;
+    padding: 0px;
+    background: none;
+    color: #fff;
+}
+
+.container {
+    position: absolute;
+    top: 130px;right: 5%;left: 30%;
+}
+.container a { 
+    text-decoration: none;
+    color: #444;
+}
+.event {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ddd;
+    display: inline-block;
+    width: 32.2%;
+    margin: 10px 5px;
+}
+.event:nth-child(1),
+.event:nth-child(3n + 1) {
+    margin-left: 0px;
+}
+.event:nth-child(3n) { margin-right: 0px; }
+.event .cover {
+    height: 200px;
+    background-size: cover !important;
+    background-position: center center !important;
+}

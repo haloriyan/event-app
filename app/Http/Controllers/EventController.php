@@ -6,9 +6,13 @@ use App\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController as UserCtrl;
 use App\Http\Controllers\TicketController as TicketCtrl;
+use App\Http\Controllers\ContactController as ContactCtrl;
 
 class EventController extends Controller
 {
+    public static function all() {
+        return Event::all();
+    }
     public static function mine($myId) {
         return Event::where('user_id', $myId)->get();
     }
@@ -38,7 +42,8 @@ class EventController extends Controller
             'date_end' => $req->dateEnd,
             'time_start' => $req->timeStart,
             'time_end' => $req->timeEnd,
-            'cover' => $coverFileName
+            'cover' => $coverFileName,
+            'status' => 1,
         ]);
 
         $cover->storeAs('public/cover', $coverFileName);
@@ -58,5 +63,27 @@ class EventController extends Controller
         $deleteTicket = TicketCtrl::deleteAll($id);
 
         return redirect()->route('user.events');
+    }
+    public static function slug($title) {
+        $cek = strpos($title, "-");
+		if($cek > 0) {
+			$res = implode(" ", explode("-", $title));
+		}else {
+			$res = implode("-", explode(" ", $title));
+			$res = strtolower($res);
+		}
+		return $res;
+    }
+    public function detail($title) {
+        $title = $this->slug($title);
+        $evt = Event::where('title', 'LIKE', '%'.$title.'%')->with('users')->first();
+
+        $userId = $evt->users->id;
+        $getContact = ContactCtrl::mine($userId);
+
+        return view('event.detail')->with([
+            'event' => $evt,
+            'contact' => $getContact,
+        ]);
     }
 }

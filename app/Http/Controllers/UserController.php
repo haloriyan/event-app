@@ -7,11 +7,16 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ContactController as ContactCtrl;
 use App\Http\Controllers\EventController as EventCtrl;
+use App\Http\Controllers\PaymentController as PaymentCtrl;
 
 class UserController extends Controller
 {
     public static function me() {
         return Auth::guard('user')->user();
+    }
+    public function index() {
+        $evt = EventCtrl::all();
+        return view('index')->with(['events' => $evt]);
     }
     public function loginPage() {
         return view('user.login');
@@ -46,6 +51,7 @@ class UserController extends Controller
             'email' => $req->email,
             'password' => bcrypt($req->password),
             'photo' => 'default.png',
+            'status' => '1',
         ]);
 
         return redirect()->route('user.dashboard');
@@ -68,5 +74,12 @@ class UserController extends Controller
         $myEvent = EventCtrl::mine($myId);
 
         return view('user.event')->with(['events' => $myEvent]);
+    }
+    public function paymentsPage() {
+        $myData = $this->me();
+        $myId = $myData->id;
+
+        $payment = PaymentCtrl::mine($myId);
+        return view('user.payment')->with(['payment' => $payment]);
     }
 }
