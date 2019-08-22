@@ -18,8 +18,8 @@ class UserController extends Controller
         $evt = EventCtrl::all();
         return view('index')->with(['events' => $evt]);
     }
-    public function loginPage() {
-        return view('user.login');
+    public function loginPage($redirectTo = NULL) {
+        return view('user.login')->with(['redirectTo' => $redirectTo]);
     }
     public function registerPage() {
         return view('user.register');
@@ -27,6 +27,7 @@ class UserController extends Controller
     public function login(Request $req) {
         $email = $req->email;
         $password = $req->password;
+        $redirectTo = base64_decode($req->redirectTo);
 
         $login = Auth::guard('user')->attempt([
             'email' => $email,
@@ -37,7 +38,11 @@ class UserController extends Controller
             return redirect()->route('user.loginPage')->withErrors(['Email / Password salah!']);
         }
 
-        return redirect()->route('user.dashboard');
+        if($redirectTo == "") {
+            return redirect()->route('user.dashboard');
+        }else {
+            return redirect($redirectTo);
+        }
     }
     public function register(Request $req) {
         $validateData = $this->validate($req, [
@@ -81,5 +86,9 @@ class UserController extends Controller
 
         $payment = PaymentCtrl::mine($myId);
         return view('user.payment')->with(['payment' => $payment]);
+    }
+    public function logout() {
+        $loggingOut = Auth::guard('user')->logout();
+        return redirect()->route('user.login');
     }
 }

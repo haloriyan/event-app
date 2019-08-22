@@ -48,6 +48,9 @@ function toIdr($angka) {
         <a href="{{ route('ticket.create', $event->id) }}">
             <button class="biru mt-2">Add More</button>
         </a>
+        <a href="{{ route('user.events') }}">
+            <button class="biru-alt mt-2 ml-1">back to Event List</button>
+        </a>
     @endif
 </div>
 @endsection

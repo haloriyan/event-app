@@ -30,12 +30,17 @@ Route::group(['prefix' => 'event'], function() {
     Route::get('create', 'EventController@create')->name('event.create');
     Route::post('store', 'EventController@store')->name('event.store');
     Route::delete('{id}/delete', 'EventController@delete')->name('event.delete');
-    Route::get('/{id}', 'EventController@detail')->name('event.detail');
+    Route::get('{id}/edit', 'EventController@edit')->name('event.edit');
+    Route::patch('{id}/update', 'EventController@update')->name('event.update');
+    Route::get('/{title}/buy-ticket', 'EventController@ticketDetail')->name('event.ticket');
+    Route::get('/{title}', 'EventController@detail')->name('event.detail');
     
     Route::get('{id}/ticket', 'TicketController@info')->name('ticket.info');
     Route::get('{id}/create-ticket', 'TicketController@create')->name('ticket.create');
     Route::post('{id}/create-ticket', 'TicketController@store')->name('ticket.store');
     Route::delete('{id}/delete-ticket', 'TicketController@delete')->name('ticket.delete');
+
+    Route::post('{id}/book', 'EventController@book')->name('event.book');
 });
 
 Route::group(['prefix' => 'ticket'], function() {
@@ -59,12 +64,19 @@ Route::group(['prefix' => 'payment'], function() {
     Route::delete('{id}/delete', 'PaymentController@delete')->name('payment.delete');
 });
 
-Route::get('/login', 'UserController@loginPage')->name('user.loginPage');
+Route::get('/login/{redirectTo?}', 'UserController@loginPage')->name('user.loginPage');
 Route::post('/login', 'UserController@login')->name('user.login');
 Route::get('/register', 'UserController@registerPage')->name('user.registerPage');
 Route::post('/register', 'UserController@register')->name('user.register');
+Route::get('/logout', 'UserController@logout')->name('user.logout');
 
 Route::get('/dashboard', 'UserController@dashboard')->name('user.dashboard')->middleware('User');
 Route::get('/events', 'UserController@eventsPage')->name('user.events')->middleware('User');
 Route::get('/settings', 'UserController@settingsPage')->name('user.settings')->middleware('User');
 Route::get('/payments', 'UserController@paymentsPage')->name('user.payments')->middleware('User');
+
+
+Route::group(['prefix' => 'eventbrite'], function() {
+    Route::get('accessToken', 'EventbriteController@accessToken');
+    Route::get('authorize', 'EventbriteController@authorize');
+});

@@ -105,21 +105,34 @@ button.biru:focus {
     outline: none;
     box-shadow: 1px 1px 5px 5px #2196f380;
 }
+button.kuning {
+    background-color: #fcd840;
+    color: #444;
+}
+button.kuning:hover { background-color: #d4b62c; }
+button.kuning:focus {
+    outline: none;
+    box-shadow: 1px 1px 5px 1px #d4b62c30;
+}
 
 button.biru-alt {
     background: none;
     color: #2196f3;
 }
-button.biru-alt:hover {
-    background-color: #2196f320;
-}
+button.biru-alt:hover { background-color: #2196f320; }
 button.merah-alt {
     background: none;
     color: #e74c3c;
 }
-button.merah-alt:hover {
-    background-color: #e74c3c20;
+button.merah-alt:hover { background-color: #e74c3c20; }
+
+button.kuning-alt {
+    background: none;
+    color: #fcd840;
 }
+button.kuning-alt:hover { background-color: #fcd84030; }
+button.kuning-alt:focus { outline: none; }
+
 button.no-style {
     color: #444;
     font-family: ProReg;
@@ -283,6 +296,10 @@ table td form { display: inline-block; }
 .lebar-35 { width: 35%; }
 .lebar-30 { width: 30%; }
 .lebar-25 { width: 25%; }
+.lebar-20 { width: 20%; }
+.lebar-15 { width: 15%; }
+.lebar-10 { width: 10%; }
+.lebar-5 { width: 5%; }
 
 /* display */
 .d-block { display: block; }

@@ -22,7 +22,22 @@
 </div>
 
 <div class="kanan">
-    <button class="lebar-100 biru rounded-circle">Purchase</button>
+    @if ($haveTicket == 0)
+        <a href="{{ route('event.ticket', $sluggedTitle) }}">
+            <button class="lebar-100 biru rounded-circle">Purchase</button>
+        </a>
+    @elseif ($haveTicket == 2)
+        @php
+            $thisUrl = route('event.detail', $sluggedTitle)
+        @endphp
+        <a href="{{ route('user.loginPage', base64_encode($thisUrl)) }}">
+            <button class="lebar-100 biru rounded-circle">Login for purchase ticket</button>
+        </a>
+    @else
+        <a href="#">
+            <button class="lebar-100 biru rounded-circle">Check your ticket</button>
+        </a>
+    @endif
     <div class="mt-4 bg-putih bayangan-5 p-3">
         @php
             $displayedDateStart = Carbon::parse($event->date_start)->format('M d, Y');

@@ -24,6 +24,10 @@ use \App\Http\Controllers\EventController as EventCtrl;
     </div>
 </div>
 
+<div class="filter bayangan-5 p-2 rounded">
+    haha
+</div>
+
 <div class="container">
     @foreach ($events as $item)
         @php

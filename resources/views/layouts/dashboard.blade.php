@@ -37,10 +37,12 @@
             <span>Payment</span>
         </li>
     </a>
-    <li>
-        <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
-        <span>Log Out</span>
-    </li>
+    <a href="{{ route('user.logout') }}">
+        <li>
+            <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+            <span>Log Out</span>
+        </li>
+    </a>
 </nav>
 
 <div class="container">

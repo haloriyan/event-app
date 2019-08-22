@@ -54,3 +54,11 @@
     background-size: cover !important;
     background-position: center center !important;
 }
+
+.filter {
+    position: fixed;
+    top: 140px;left: 5%;
+    width: 20%;
+    background-color: #fff;
+    color: #444;
+}

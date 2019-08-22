@@ -5,6 +5,7 @@
 @section('content')
 <form action="{{ route('user.login') }}" method="POST">
     {{ csrf_field() }}
+    <input type="hidden" name="redirectTo" value="{{ $redirectTo }}">
     <div>Email :</div>
     <input type="email" class="box" name="email">
     <div class="mt-2">Password :</div>

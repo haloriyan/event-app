@@ -4,11 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Ticket;
+use App\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\EventController as EventCtrl;
 
 class TicketController extends Controller
 {
+    public static function get($eventId) {
+        return Ticket::where('event_id', $eventId)->get();
+    }
+    public static function getTicketInfo($ticketId) {
+        return Ticket::where('id', $ticketId)->first();
+    }
+    public static function haveTicket($userId, $eventId) {
+        $getTicket = Ticket::where('event_id', $eventId)->get();
+        foreach($getTicket as $ticket) {
+            $cekBooking[] = Booking::where([
+                ['ticket_id', $ticket->id],
+                ['user_id', $userId]
+            ])
+            ->count('id');
+        }
+        foreach($cekBooking as $key => $value) {
+            return ($value == 1) ? true : false;
+        }
+        // return ($get->count() > 0) ? true : false;
+    }
     public function info($eventId) {
         $getTicket = Ticket::where('event_id', $eventId)->get();
         $evt = EventCtrl::get($eventId);
