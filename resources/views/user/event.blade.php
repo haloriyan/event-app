@@ -15,7 +15,7 @@
                 <tr>
                     <th>Title</th>
                     <th><i class="fas fa-calendar"></i></th>
-                    <th class="lebar-20"></th>
+                    <th class="lebar-30"></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +32,9 @@
                         <td class="rata-kanan">
                             <a href="{{ route('event.edit', $item->id) }}">
                                 <button class="p-1 kuning-alt"><i class="fas fa-edit"></i></button>
+                            </a>
+                            <a href="{{ route('event.guests', $item->id) }}">
+                                <button class="p-1 hijau-alt"><i class="fas fa-users"></i></button>
                             </a>
                             <a href="{{ route('ticket.info', $item->id) }}">
                                 <button class="p-1 biru-alt"><i class="fas fa-tags"></i></button>

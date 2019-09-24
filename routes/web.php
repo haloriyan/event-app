@@ -41,7 +41,12 @@ Route::group(['prefix' => 'event'], function() {
     Route::delete('{id}/delete-ticket', 'TicketController@delete')->name('ticket.delete');
 
     Route::post('{id}/book', 'EventController@book')->name('event.book');
+
+    Route::get('{id}/guests', 'EventController@guests')->name('event.guests');
+    Route::get('{id}/guestsData', 'EventController@getGuestsData')->name('event.guestsData');
 });
+
+Route::post('attend', 'EventController@attend')->name('event.attend');
 
 Route::group(['prefix' => 'ticket'], function() {
     Route::get('{id}/edit', 'TicketController@edit')->name('ticket.edit');
@@ -74,6 +79,7 @@ Route::get('/dashboard', 'UserController@dashboard')->name('user.dashboard')->mi
 Route::get('/events', 'UserController@eventsPage')->name('user.events')->middleware('User');
 Route::get('/settings', 'UserController@settingsPage')->name('user.settings')->middleware('User');
 Route::get('/payments', 'UserController@paymentsPage')->name('user.payments')->middleware('User');
+Route::get('/tickets', 'UserController@ticketsPage')->name('user.tickets')->middleware('User');
 
 
 Route::group(['prefix' => 'eventbrite'], function() {

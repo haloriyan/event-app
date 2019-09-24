@@ -34,7 +34,7 @@
             <button class="lebar-100 biru rounded-circle">Login for purchase ticket</button>
         </a>
     @else
-        <a href="#">
+        <a href="{{ route('user.tickets') }}">
             <button class="lebar-100 biru rounded-circle">Check your ticket</button>
         </a>
     @endif

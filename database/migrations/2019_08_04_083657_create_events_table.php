@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('category');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('cover');
             $table->string('address');
             $table->date('date_start');

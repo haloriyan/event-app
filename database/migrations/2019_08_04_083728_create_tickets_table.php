@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->integer('event_id')->unsigned()->index();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->string('name');
-            $table->integer('price');
+            $table->integer('price')->nullable();
             $table->integer('stock');
             $table->timestamps();
         });

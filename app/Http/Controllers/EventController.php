@@ -12,8 +12,15 @@ use App\Http\Controllers\ContactController as ContactCtrl;
 
 class EventController extends Controller
 {
-    public static function all() {
-        return Event::all();
+    public static function active($dateNow) {
+        return Event::where([
+            ['date_end', '>=', $dateNow],
+        ])->get();
+    }
+    public function inActive($dateNow) {
+        return Event::where([
+            ['date_end', '<=', $dateNow],
+        ])->get();
     }
     public static function mine($myId) {
         return Event::where('user_id', $myId)->get();
@@ -130,6 +137,7 @@ class EventController extends Controller
         ]);
     }
     public function book($id, Request $req) {
+        $input = Input::get();
         $all = json_encode(Input::get(), true);
         $tickets = json_decode($all, true);
 
@@ -137,18 +145,62 @@ class EventController extends Controller
         $myId = $myData->id;
 
         foreach($tickets as $ticketId => $qty) {
-            if($ticketId != "_token" && $qty > 0) {
+            if($ticketId != "_token" && $ticketId != "eventId" && $qty > 0) {
                 $ticket = TicketCtrl::getTicketInfo($ticketId);
                 $totalPay = $ticket->price * $qty;
+
+                $status = ($ticket->price == 0) ? 1 : 0;
 
                 $books = Booking::create([
                     'ticket_id' => $ticketId,
                     'user_id' => $myId,
                     'qty' => $qty,
                     'total_pay' => $totalPay,
-                    'status' => 0,
+                    'status' => $status,
                 ]);
             }
         }
+
+        return redirect()->route('user.tickets');
+    }
+    public function getPeopleBooking($ticketId) {
+        return Booking::where([
+            ['ticket_id', $ticketId],
+            ['status', 1],
+        ])
+        ->orWhere([
+            ['ticket_id', $ticketId],
+            ['status', 9],
+        ])
+        ->with('users')->get();
+    }
+    public function guests($eventId) {
+        $myData = UserCtrl::me();
+        $eventData = $this->get($eventId);
+        $tickets = $this->getGuestsData($eventId);
+
+        return view('event.guests')->with([
+            'myData' => $myData,
+            'tickets' => $tickets,
+            'event' => $eventData,
+        ]);
+    }
+    public function getGuestsData($eventId) {
+        $tickets = TicketCtrl::get($eventId);
+
+        $i = 0;
+        foreach($tickets as $ticket) {
+            $iPP = $i++;
+            $ticket = json_decode($ticket, true);
+            $tickets[$iPP]['guest'] = $this->getPeopleBooking($ticket['id']);
+        }
+
+        return $tickets;
+    }
+    public function attend(Request $req) {
+        $id = $req->id;
+        $update = Booking::find($id)->update([
+            'status' => 9,
+        ]);
     }
 }

@@ -28,6 +28,10 @@
     background: none;
     color: #fff;
 }
+.atas .pencarian .box:focus {
+    background-color: #fff;
+    color: #444;
+}
 
 .container {
     position: absolute;

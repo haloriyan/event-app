@@ -12,8 +12,8 @@
     <input type="password" class="box" name="password">
     <button class="lebar-100 mt-4 bg-biru">Login</button>
 
-    @if ($errors->any())
-        @foreach ($errors as $item)
+    @if ($errors->count() > 0)
+        @foreach ($errors->all() as $item)
             <div class="bg-merah-transparan mt-2 p-2 rounded">
                 {{ $item }}
             </div>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ContactController as ContactCtrl;
 use App\Http\Controllers\EventController as EventCtrl;
 use App\Http\Controllers\PaymentController as PaymentCtrl;
+use App\Http\Controllers\TicketController as TicketCtrl;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
         return Auth::guard('user')->user();
     }
     public function index() {
-        $evt = EventCtrl::all();
+        $dateNow = date('Y-m-d');
+        $evt = EventCtrl::active($dateNow);
         return view('index')->with(['events' => $evt]);
     }
     public function loginPage($redirectTo = NULL) {
@@ -49,6 +51,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'email',
             'password' => 'min:6',
+            'event_active' => '[]'
         ]);
 
         $reg = User::create([
@@ -60,6 +63,9 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('user.dashboard');
+    }
+    public static function patch($col, $val, $userId) {
+        return User::find($userId)->update([$col => $val]);
     }
     public function dashboard() {
         return view('user.dashboard');
@@ -90,5 +96,13 @@ class UserController extends Controller
     public function logout() {
         $loggingOut = Auth::guard('user')->logout();
         return redirect()->route('user.login');
+    }
+    public function ticketsPage() {
+        $myData = $this->me();
+        $myTickets = TicketCtrl::mine($myData->id);
+        return view('user.tickets')->with([
+            'myData' => $myData,
+            'tickets' => $myTickets,
+        ]);
     }
 }

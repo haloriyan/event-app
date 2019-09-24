@@ -15,6 +15,7 @@
         <h2>Buy Ticket for {{ $event->title }}</h2>
         <form class="bg-putih rounded bayangan-5 p-3" action="{{ route('event.book', $event->id) }}" method="POST">
             {{ csrf_field() }}
+            <input type="hidden" name="eventId" value="{{ $event->id }}">
             <table>
                 <thead>
                     <tr>
@@ -34,7 +35,7 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ toIdr($item->price) }}</td>
                             <td>
-                                <input type="number" name="{{ $item->id }}" min="1" class="box border" value="1">
+                                <input type="number" name="{{ $item->id }}" min="0" class="box border" value="0">
                             </td>
                         </tr>
                     @endforeach

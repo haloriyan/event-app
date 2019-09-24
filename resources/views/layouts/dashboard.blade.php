@@ -25,16 +25,22 @@
             <span>My Events</span>
         </li>
     </a>
-    <a href="{{ route('user.settings') }}">
-        <li class="{{ (Route::currentRouteName() == 'user.settings') ? 'active' : 'none' }}">
-            <div class="icon"><i class="fas fa-cogs"></i></div>
-            <span>Settings</span>
+    <a href="{{ route('user.tickets') }}">
+        <li class="{{ (Route::currentRouteName() == 'user.tickets') ? 'active' : 'none' }}">
+            <div class="icon"><i class="fas fa-tags"></i></div>
+            <span>My Tickets</span>
         </li>
     </a>
     <a href="{{ route('user.payments') }}">
         <li class="{{ (Route::currentRouteName() == 'user.payments') ? 'active' : 'none' }}">
             <div class="icon"><i class="fas fa-money-bill-alt"></i></div>
             <span>Payment</span>
+        </li>
+    </a>
+    <a href="{{ route('user.settings') }}">
+        <li class="{{ (Route::currentRouteName() == 'user.settings') ? 'active' : 'none' }}">
+            <div class="icon"><i class="fas fa-cogs"></i></div>
+            <span>Settings</span>
         </li>
     </a>
     <a href="{{ route('user.logout') }}">
@@ -45,7 +51,7 @@
     </a>
 </nav>
 
-<div class="container">
+<div class="container mb-5">
     @yield('content')
 </div>
 
