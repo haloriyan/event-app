@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('fw/fontawesome-all.min.css') }}">
-    @yield('additional.dependencies')
+    @yield('head.dependencies')
 </head>
 <body>
 
@@ -19,16 +19,24 @@
             <span>Dashboard</span>
         </li>
     </a>
+    <a href="{{ route('admin.event') }}">
+        <li class="{{ (Route::currentRouteName() == 'admin.event') ? 'active' : 'none' }}">
+            <div class="icon"><i class="fas fa-calendar"></i></div>
+            <span>Events</span>
+        </li>
+    </a>
     <a href="{{ route('admin.category') }}">
         <li class="{{ (Route::currentRouteName() == 'admin.category') ? 'active' : 'none' }}">
             <div class="icon"><i class="fas fa-tags"></i></div>
             <span>Categories</span>
         </li>
     </a>
-    <li>
-        <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
-        <span>Log Out</span>
-    </li>
+    <a href="{{ route('admin.logout') }}">
+        <li class="{{ (Route::currentRouteName() == 'admin.logout') ? 'active' : 'none' }}">
+            <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+            <span>Log Out</span>
+        </li>
+    </a>
 </nav>
 
 <div class="container">

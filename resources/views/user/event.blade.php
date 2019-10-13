@@ -26,18 +26,26 @@
                             @php
                                 $displayedDateStart = Carbon::parse($item->date_start)->format('M d, Y');
                                 $displayedDateEnd = Carbon::parse($item->date_end)->format('M d, Y');
+
+                                $dateNow = date('Y-m-d');
+                                $active = $item->date_end >= $dateNow ? 1 : 0;
                             @endphp
                             {{ $displayedDateStart }} - {{ $displayedDateEnd }}
                         </td>
                         <td class="rata-kanan">
-                            <a href="{{ route('event.edit', $item->id) }}">
-                                <button class="p-1 kuning-alt"><i class="fas fa-edit"></i></button>
-                            </a>
+                            @if ($active == 0)
+                                <a href="{{ route('event.redeem', $item->id) }}" title="Redeem">
+                                    <button class="p-1 hijau-alt"><i class="fas fa-money-bill"></i></button>
+                                </a>
+                            @endif
                             <a href="{{ route('event.guests', $item->id) }}">
-                                <button class="p-1 hijau-alt"><i class="fas fa-users"></i></button>
+                                <button class="p-1 oren-alt"><i class="fas fa-users"></i></button>
                             </a>
                             <a href="{{ route('ticket.info', $item->id) }}">
                                 <button class="p-1 biru-alt"><i class="fas fa-tags"></i></button>
+                            </a>
+                            <a href="{{ route('event.edit', $item->id) }}">
+                                <button class="p-1 kuning-alt"><i class="fas fa-edit"></i></button>
                             </a>
                             <form action="{{ route('event.delete', $item->id) }}" method="POST">
                                 {{ csrf_field() }}

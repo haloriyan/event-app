@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Category;
 use Illuminate\Http\Request;
+use \App\Http\Controllers\EventController as EventCtrl;
+use \App\Http\Controllers\UserController as UserCtrl;
 
 class AdminController extends Controller
 {
@@ -22,11 +24,28 @@ class AdminController extends Controller
 
         return redirect()->route('admin.dashboard');
     }
+    public function logout() {
+        $logout = Auth::guard('admin')->logout();
+        return redirect()->route('admin.login');
+    }
     public function dashboard() {
-        return view('admin.dashboard');
+        $dateNow = date('Y-m-d');
+        $events = EventCtrl::countEvent();
+
+        $users = UserCtrl::countUser();
+
+        return view('admin.dashboard')->with([
+            'events' => $events,
+            'users' => $users,
+        ]);
     }
     public function categoryPage() {
         $cats = Category::all();
         return view('admin.category')->with(['categories' => $cats]);
+    }
+    public function eventPage() {
+        $dateNow = date('Y-m-d');
+        $events = EventCtrl::active($dateNow);
+        return view('admin.event')->with(['events' => $events]);
     }
 }

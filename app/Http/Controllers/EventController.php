@@ -12,6 +12,9 @@ use App\Http\Controllers\ContactController as ContactCtrl;
 
 class EventController extends Controller
 {
+    public static function countEvent() {
+        return Event::all(['id'])->count();
+    }
     public static function active($dateNow) {
         return Event::where([
             ['date_end', '>=', $dateNow],
@@ -23,10 +26,17 @@ class EventController extends Controller
         ])->get();
     }
     public static function mine($myId) {
-        return Event::where('user_id', $myId)->get();
+        return Event::where([
+            ['user_id', $myId],
+            ['status', 1],
+        ])->get();
     }
-    public static function get($eventId) {
-        return Event::where('id', $eventId)->first();
+    public static function get($eventId, $relationName = NULL) {
+        if(!$relationName) {
+            return Event::where('id', $eventId)->first();
+        }else {
+            return Event::where('id', $eventId)->with($relationName)->first();
+        }
     }
     public function create() {
         return view('event.create');
@@ -63,6 +73,9 @@ class EventController extends Controller
     public function edit($id) {
         $event = $this->get($id);
         return view('event.edit')->with(['event' => $event]);
+    }
+    public static function change($eventId, $didUpdate) {
+        return Event::find($eventId)->update($didUpdate);
     }
     public function update($id, Request $req) {
         $evt = Event::find($id);
@@ -158,6 +171,8 @@ class EventController extends Controller
                     'total_pay' => $totalPay,
                     'status' => $status,
                 ]);
+
+                $updateTicket = TicketCtrl::decreaseQuota($ticketId, $qty);
             }
         }
 
@@ -201,6 +216,27 @@ class EventController extends Controller
         $id = $req->id;
         $update = Booking::find($id)->update([
             'status' => 9,
+        ]);
+    }
+    public function toPay($ticketId) {
+        $data = Booking::where('ticket_id', $ticketId)->first(['total_pay']);
+        return $data->total_pay;
+    }
+    public function redeemPage($id) {
+        $event = $this->get($id, 'tickets');
+        $tickets = $event->tickets;
+
+        $total = 0;
+
+        foreach($tickets as $ticket) {
+            $price = $ticket->price;
+            $toPay = $this->toPay($ticket->id);
+            $total += $toPay; 
+        }
+
+        return view('event.redeem')->with([
+            'event' => $event,
+            'total' => $total,
         ]);
     }
 }

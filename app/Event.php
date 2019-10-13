@@ -16,6 +16,6 @@ class Event extends Model
     }
 
     public function tickets() {
-        $this->hasMany('App\Ticket', 'event_id');
+        return $this->hasMany('App\Ticket', 'event_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Event;
 use App\Ticket;
 use App\Booking;
@@ -42,6 +43,12 @@ class TicketController extends Controller
         foreach($cekBooking as $key => $value) {
             return ($value == 1) ? true : false;
         }
+    }
+    public static function decreaseQuota($ticketId, $qty) {
+        $decrease = 'stock - '.$qty;
+        return Ticket::find($ticketId)->update([
+            'stock' => DB::raw($decrease),
+        ]);
     }
     public function info($eventId) {
         $getTicket = Ticket::where('event_id', $eventId)->get();
@@ -90,5 +97,9 @@ class TicketController extends Controller
         $tick->delete();
 
         return redirect()->route('ticket.info', $eventId);
+    }
+    public function detail($id) {
+        $ticket = Booking::where('id', $id)->with(['tickets.events','users'])->first();
+        return view('user.detailTicket')->with(['ticket' => $ticket]);
     }
 }

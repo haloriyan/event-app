@@ -1,4 +1,21 @@
 @extends('layouts.dashboardAdmin')
+@section('head.dependencies')
+<style>
+    .cats {
+        display: inline-block;
+        padding: 12px 25px;
+        border-radius: 90px;
+        cursor: pointer;
+    }
+    .cats form { display: none; }
+    .cats:hover form { display: inline-block; }
+    .btn {
+        padding: 0px;
+        height: 10px;
+        margin-left: 5px;
+    }
+</style>
+@endsection
 
 @section('content')
 <h1>Categories</h1>
@@ -19,28 +36,17 @@
         <h3>No data</h3>
         <button class="biru mt-2" onclick="showFormCreate()">Create One</button>
     @else
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th class="lebar-25"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($categories as $item)
-                    <tr>
-                        <td>{{ $item->category }}</td>
-                        <td>
-                            <form action="{{ route('category.delete', $item->id) }}" method="POST">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="_method" value="delete">
-                                <button class="merah p-1 pl-2 pr-2"><i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @foreach ($categories as $cat)
+            <div class="cats bg-biru-transparan">
+                {{ $cat->category }}
+                <form action="{{ route('category.delete', $cat->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="delete">
+                    <button class="btn teks-merah"><i class="fas fa-trash"></i></button>
+                </form>
+            </div>
+        @endforeach
+        <br />
         <button class="biru mt-2" onclick="showFormCreate()">Add One</button>
     @endif
 </div>

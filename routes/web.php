@@ -24,6 +24,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
     Route::get('category', 'AdminController@categoryPage')->name('admin.category');
+    Route::get('events', 'AdminController@eventPage')->name('admin.event');
+    Route::get('logout', 'AdminController@logout')->name('admin.logout');
 });
 
 Route::group(['prefix' => 'event'], function() {
@@ -44,11 +46,18 @@ Route::group(['prefix' => 'event'], function() {
 
     Route::get('{id}/guests', 'EventController@guests')->name('event.guests');
     Route::get('{id}/guestsData', 'EventController@getGuestsData')->name('event.guestsData');
+
+    Route::get('{id}/redeem', 'EventController@redeemPage')->name('event.redeem');
+});
+
+Route::group(['prefix' => 'redeem'], function() {
+    Route::post('/store', 'RedeemController@store')->name('redeem.store');
 });
 
 Route::post('attend', 'EventController@attend')->name('event.attend');
 
 Route::group(['prefix' => 'ticket'], function() {
+    Route::get('{id}/detail', 'TicketController@detail')->name('ticket.detail');
     Route::get('{id}/edit', 'TicketController@edit')->name('ticket.edit');
     Route::put('{id}/update', 'TicketController@update')->name('ticket.update');
 });
@@ -85,4 +94,13 @@ Route::get('/tickets', 'UserController@ticketsPage')->name('user.tickets')->midd
 Route::group(['prefix' => 'eventbrite'], function() {
     Route::get('accessToken', 'EventbriteController@accessToken');
     Route::get('authorize', 'EventbriteController@authorize');
+});
+
+Route::get('/test', function() {
+    return bcrypt("inikatasandi");
+});
+
+Route::get('/artisan/{toDo}', function($toDo) {
+    Artisan::call($toDo);
+    return "ok";
 });

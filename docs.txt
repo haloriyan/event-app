@@ -1,0 +1,8 @@
+Booking status :
+0 : belum bayar
+1 : bayar
+2 : belum login
+9 : hadir
+
+Event Status :
+8 : Redeem requested

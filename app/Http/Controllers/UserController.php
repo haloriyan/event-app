@@ -12,6 +12,9 @@ use App\Http\Controllers\TicketController as TicketCtrl;
 
 class UserController extends Controller
 {
+    public static function countUser() {
+        return User::all(['id'])->count();
+    }
     public static function me() {
         return Auth::guard('user')->user();
     }
@@ -51,7 +54,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'email',
             'password' => 'min:6',
-            'event_active' => '[]'
         ]);
 
         $reg = User::create([

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('additional.dependencies')
+@section('head.dependencies')
 <style>
     #formCreateContact { display: none; }
 </style>
