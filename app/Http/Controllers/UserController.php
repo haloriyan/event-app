@@ -9,6 +9,8 @@ use App\Http\Controllers\ContactController as ContactCtrl;
 use App\Http\Controllers\EventController as EventCtrl;
 use App\Http\Controllers\PaymentController as PaymentCtrl;
 use App\Http\Controllers\TicketController as TicketCtrl;
+use App\Http\Controllers\CityController as CityCtrl;
+use App\Http\Controllers\CategoryController as CategoryCtrl;
 
 class UserController extends Controller
 {
@@ -18,10 +20,29 @@ class UserController extends Controller
     public static function me() {
         return Auth::guard('user')->user();
     }
-    public function index() {
+    public function index(Request $req) {
+        $city = $req->city == null ? "" : $req->city;
+        $category = $req->category == null ? "" : $req->category;
+        $q = $req->q == null ? "" : $req->q;
+
+        $filter = [
+            'city' => $city,
+            'category' => $category,
+            'q' => $q,
+        ];
+
+        $cities = CityCtrl::get();
+        $categories = CategoryCtrl::get();
         $dateNow = date('Y-m-d');
-        $evt = EventCtrl::active($dateNow);
-        return view('index')->with(['events' => $evt]);
+        $evt = EventCtrl::active($dateNow, $filter);
+        $filter = json_encode($filter);
+
+        return view('index')->with([
+            'events' => $evt,
+            'cities' => $cities,
+            'categories' => $categories,
+            'filter' => $filter,
+        ]);
     }
     public function loginPage($redirectTo = NULL) {
         return view('user.login')->with(['redirectTo' => $redirectTo]);
@@ -106,5 +127,8 @@ class UserController extends Controller
             'myData' => $myData,
             'tickets' => $myTickets,
         ]);
+    }
+    public function card() {
+        return view('card');
     }
 }

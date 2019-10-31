@@ -1,6 +1,6 @@
 @extends('layouts.eventForm')
 
-@section('title', 'Edit Ticket | Agenda Kota')
+@section('title', 'Edit Ticket | Event Kota')
 @section('additional.dependencies')
 <style>
     .bagError {

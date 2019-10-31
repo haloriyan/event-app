@@ -36,23 +36,19 @@
 .container {
     position: absolute;
     top: 130px;right: 5%;left: 30%;
+    margin-bottom: 50px;
 }
 .container a { 
     text-decoration: none;
     color: #444;
 }
 .event {
+    vertical-align: top;
     background-color: #fff;
     box-shadow: 1px 1px 5px 1px #ddd;
     display: inline-block;
-    width: 32.2%;
-    margin: 10px 5px;
+    width: 32.2% !important;
 }
-.event:nth-child(1),
-.event:nth-child(3n + 1) {
-    margin-left: 0px;
-}
-.event:nth-child(3n) { margin-right: 0px; }
 .event .cover {
     height: 200px;
     background-size: cover !important;
@@ -61,7 +57,7 @@
 
 .filter {
     position: fixed;
-    top: 140px;left: 5%;
+    top: 130px;left: 5%;
     width: 20%;
     background-color: #fff;
     color: #444;

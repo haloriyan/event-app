@@ -57,6 +57,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="rata-tengah">
+            {{ $events->links() }}
+        </div>
         <a href="{{ route('event.create') }}">
             <button class="biru mt-2">Create another</button>
         </a>

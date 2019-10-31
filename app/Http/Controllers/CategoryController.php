@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public static function get() {
+        return Category::orderBy('category', 'ASC')->get();
+    }
     public function store(Request $req) {
         $cat = new Category;
         $cat->category = $req->category;

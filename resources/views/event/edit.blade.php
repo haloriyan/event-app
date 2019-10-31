@@ -1,6 +1,6 @@
 @extends('layouts.eventForm')
 
-@section('title', 'Create Event | Agenda Kota')
+@section('title', 'Create Event | Event Kota')
 @section('additional.dependencies')
 <link rel="stylesheet" href="{{ asset('plugins/flatpickr/dist/flatpickr.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/flatpickr/dist/themes/material_red.css') }}">

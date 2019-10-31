@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
     Route::get('category', 'AdminController@categoryPage')->name('admin.category');
+    Route::get('city', 'AdminController@cityPage')->name('admin.city');
     Route::get('events', 'AdminController@eventPage')->name('admin.event');
     Route::get('logout', 'AdminController@logout')->name('admin.logout');
 });
@@ -78,6 +79,11 @@ Route::group(['prefix' => 'payment'], function() {
     Route::delete('{id}/delete', 'PaymentController@delete')->name('payment.delete');
 });
 
+Route::group(['prefix' => 'city'], function() {
+    Route::post('store', 'CityController@store')->name('city.store');
+    Route::delete('{id}/delete', 'CityController@delete')->name('city.delete');
+});
+
 Route::get('/login/{redirectTo?}', 'UserController@loginPage')->name('user.loginPage');
 Route::post('/login', 'UserController@login')->name('user.login');
 Route::get('/register', 'UserController@registerPage')->name('user.registerPage');
@@ -89,16 +95,6 @@ Route::get('/events', 'UserController@eventsPage')->name('user.events')->middlew
 Route::get('/settings', 'UserController@settingsPage')->name('user.settings')->middleware('User');
 Route::get('/payments', 'UserController@paymentsPage')->name('user.payments')->middleware('User');
 Route::get('/tickets', 'UserController@ticketsPage')->name('user.tickets')->middleware('User');
-
-
-Route::group(['prefix' => 'eventbrite'], function() {
-    Route::get('accessToken', 'EventbriteController@accessToken');
-    Route::get('authorize', 'EventbriteController@authorize');
-});
-
-Route::get('/test', function() {
-    return bcrypt("inikatasandi");
-});
 
 Route::get('/artisan/{toDo}', function($toDo) {
     Artisan::call($toDo);

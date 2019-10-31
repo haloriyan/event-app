@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $event->title }} | Agenda Kota</title>
+    <title>{{ $event->title }} | Event Kota</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('fw/fontawesome-all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
@@ -12,14 +12,7 @@
 </head>
 <body>
 
-<div class="atas bg-biru">
-    <h1 class="title">Agenda Kota</h1>
-    <div class="pencarian ke-kanan bag bag-5">
-        {{ csrf_field() }}
-        <input type="text" class="box" name="q">
-        <button id="cari"><i class="fas fa-search"></i></button>
-    </div>
-</div>
+@include('layouts.header')
 
 <div class="kanan">
     @if ($haveTicket == 0)

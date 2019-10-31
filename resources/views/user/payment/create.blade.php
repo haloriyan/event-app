@@ -1,6 +1,6 @@
 @extends('layouts.eventForm')
 
-@section('title', 'Create Event | Agenda Kota')
+@section('title', 'Create Event | Event Kota')
 
 @section('content')
 <form class="rata-tengah mt-5" action="{{ route('payment.store') }}" method="POST" enctype="multipart/form-data">

@@ -31,6 +31,12 @@
             <span>Categories</span>
         </li>
     </a>
+    <a href="{{ route('admin.city') }}">
+        <li class="{{ (Route::currentRouteName() == 'admin.city') ? 'active' : 'none' }}">
+            <div class="icon"><i class="fas fa-map-marker"></i></div>
+            <span>Cities</span>
+        </li>
+    </a>
     <a href="{{ route('admin.logout') }}">
         <li class="{{ (Route::currentRouteName() == 'admin.logout') ? 'active' : 'none' }}">
             <div class="icon"><i class="fas fa-sign-out-alt"></i></div>

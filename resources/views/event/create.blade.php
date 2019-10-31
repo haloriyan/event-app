@@ -1,6 +1,6 @@
 @extends('layouts.eventForm')
 
-@section('title', 'Create Event | Agenda Kota')
+@section('title', 'Create Event | Event Kota')
 @section('additional.dependencies')
 <link rel="stylesheet" href="{{ asset('plugins/flatpickr/dist/flatpickr.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/flatpickr/dist/themes/material_red.css') }}">
@@ -37,8 +37,18 @@
                 <div class="p-1 pl-3 pr-3 bg-hijau-transparan pointer d-inline-block rounded-circle mt-2" v-for="cat in categories" @click="chooseCat">@{{ cat.category }}</div>
                 <input type="text" class="box" name="category" @input="searchCat" id="category" v-model="category" required>
             </div>
-            <div class="mt-2">Location :</div>
-            <input type="text" class="box" name="address" placeholder="Address name...">
+            <div class="bag bag-4">
+                <div class="mt-2">City :</div>
+                <select name="city" id="city" class="box mt-1">
+                    @foreach ($cities as $city)
+                        <option>{{ $city->city }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="bag bag-6">
+                <div class="mt-2">Location :</div>
+                <input type="text" class="box" name="address" placeholder="Address name...">    
+            </div>
         </div>
         
         <h2>Time Information</h2>

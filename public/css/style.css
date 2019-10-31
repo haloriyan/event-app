@@ -201,7 +201,7 @@ a.oren { color: #f15b2d; }
     border-radius: 90px;
 }
 .page-item a {
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
 }
 .page-item.active {

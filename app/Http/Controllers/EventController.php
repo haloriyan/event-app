@@ -9,16 +9,29 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\UserController as UserCtrl;
 use App\Http\Controllers\TicketController as TicketCtrl;
 use App\Http\Controllers\ContactController as ContactCtrl;
+use \App\Http\Controllers\CityController as CityCtrl;
 
 class EventController extends Controller
 {
+    protected static $showPerPage = 10;
+
     public static function countEvent() {
         return Event::all(['id'])->count();
     }
-    public static function active($dateNow) {
-        return Event::where([
-            ['date_end', '>=', $dateNow],
-        ])->get();
+    public static function active($dateNow, $filter = NULL) {
+        if($filter != NULL) {
+            $condition = [
+                ['date_end', '>=', $dateNow],
+                ['city', 'LIKE', '%'.$filter['city'].'%'],
+                ['category', 'LIKE', '%'.$filter['category'].'%'],
+                ['title', 'LIKE', '%'.$filter['q'].'%'],
+            ];
+        }else {
+            $condition = [
+                ['date_end', '>=', $dateNow],
+            ];
+        }
+        return Event::where($condition)->paginate(self::$showPerPage);
     }
     public function inActive($dateNow) {
         return Event::where([
@@ -29,7 +42,7 @@ class EventController extends Controller
         return Event::where([
             ['user_id', $myId],
             ['status', 1],
-        ])->get();
+        ])->paginate(self::$showPerPage);
     }
     public static function get($eventId, $relationName = NULL) {
         if(!$relationName) {
@@ -39,7 +52,8 @@ class EventController extends Controller
         }
     }
     public function create() {
-        return view('event.create');
+        $cities = CityCtrl::get();
+        return view('event.create')->with(['cities' => $cities]);
     }
     public function store(Request $req) {
         $myData = UserCtrl::me();
@@ -57,6 +71,7 @@ class EventController extends Controller
             'title' => $req->title,
             'description' => $req->description,
             'category' => $req->category,
+            'city' => $req->city,
             'address' => $req->address,
             'date_start' => $req->dateStart,
             'date_end' => $req->dateEnd,
@@ -119,6 +134,11 @@ class EventController extends Controller
 		return $res;
     }
     public function detail($title) {
+        $filter = [
+            'q' => '',
+        ];
+        $filter = json_encode($filter);
+
         $title = $this->slug($title);
         $evt = Event::where('title', 'LIKE', '%'.$title.'%')->with('users')->first();
 
@@ -138,6 +158,7 @@ class EventController extends Controller
             'contact' => $getContact,
             'sluggedTitle' => $this->slug($title),
             'haveTicket' => $haveTicket,
+            'filter' => $filter
         ]);
     }
     public function ticketDetail($title) {
