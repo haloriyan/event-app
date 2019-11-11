@@ -17,4 +17,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+
+
 Route::post('searchCategory', 'CategoryController@search')->name('api.searchCat');
+Route::get('/events', 'EventController@activeApi');

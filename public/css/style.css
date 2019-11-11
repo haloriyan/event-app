@@ -211,7 +211,7 @@ a.oren { color: #f15b2d; }
 
 /* tabel */
 table {
-    width: 100%;
+    /* width: 100%; */
     font-family: ProReg;
 }
 table td,table th {
@@ -418,8 +418,11 @@ table td form { display: inline-block; }
 .bag-tombol button i { margin-right: 9px; }
 
 .pointer { cursor: pointer; }
+.mobile,.mobile-block,.mobile-inline-block { display: none; }
 
 @media(max-width: 480px) {
+    .mobile-inline-block { display: inline-block; }
+    .mobile-block,.mobile { display: block; }
     .bag { display: block; }
     .bag.bag-1,
     .bag.bag-2,

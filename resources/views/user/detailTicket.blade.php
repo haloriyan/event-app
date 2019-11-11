@@ -11,13 +11,19 @@
         .container {
             position: absolute;
             top: 80px;left: 30%;
-            width: 40%;;
+            width: 40%;
+        }
+        @media (max-width: 480px) {
+            .container {
+                left: 5%;
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
     
-<div class="container bg-putih rounded bayangan-5">
+<div class="container bg-putih rounded bayangan-5 mb-4">
     <div class="wrap">
         <h2>Detail Receipt
             <p class="d-inline-block teks-transparan">for {{ $ticket->users->name }}</p>
@@ -40,8 +46,32 @@
                 </tr>
             </tbody>
         </table>
+        <div class="qrArea mt-2 rata-tengah">
+            <div id="area" class="d-inline-block"></div>
+        </div>
     </div>
 </div>
+
+<script src="{{ asset('plugins/qrcodejs/qrcode.min.js') }}"></script>
+<script>
+    let area = document.querySelector('#area')
+    let qr = new QRCode(area, {
+        text: 'https://www.google.co.id',
+        width: 40,
+        height: 40
+    })
+
+    const generateQR = (data) => {
+        area.innerHTML = ''
+        new QRCode(area, data)
+    }
+
+    generateQR({
+        text: 'halo dunia',
+        width: 225,
+        height: 225,
+    })
+</script>
 
 </body>
 </html>

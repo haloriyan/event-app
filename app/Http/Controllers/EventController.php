@@ -18,6 +18,22 @@ class EventController extends Controller
     public static function countEvent() {
         return Event::all(['id'])->count();
     }
+    public function activeApi($dateNow, $filter = NULL) {
+        $dateNow = date('Y-m-d');
+        if($filter != NULL) {
+            $condition = [
+                ['date_end', '>=', $dateNow],
+                ['city', 'LIKE', '%'.$filter['city'].'%'],
+                ['category', 'LIKE', '%'.$filter['category'].'%'],
+                ['title', 'LIKE', '%'.$filter['q'].'%'],
+            ];
+        }else {
+            $condition = [
+                ['date_end', '>=', $dateNow],
+            ];
+        }
+        return Event::where($condition)->get();
+    }
     public static function active($dateNow, $filter = NULL) {
         if($filter != NULL) {
             $condition = [

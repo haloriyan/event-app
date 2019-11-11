@@ -100,3 +100,10 @@ Route::get('/artisan/{toDo}', function($toDo) {
     Artisan::call($toDo);
     return "ok";
 });
+
+Route::get('/qr/scan', function() {
+    return view('qrscanner');
+})->name('scan');
+Route::get('/qr/generate', function() {
+    return view('qrgenerator');
+});

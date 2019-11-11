@@ -4,6 +4,7 @@
     width: 20%;
     background-color: #fff;
     box-shadow: 1px 1px 5px 1px #ddd;
+    transition: 0.4s;
 }
 .menu a {
     text-decoration: none;
@@ -27,4 +28,15 @@
 .container {
     position: absolute;
     top: 30px;left: 25%;right: 5%;
+}
+
+@media (max-width: 480px) {
+    .menu {
+        width: 80%;
+        z-index: 1;
+        left: -100%;
+    }
+    .container {
+        left: 2.5%;right: 2.5%;
+    }
 }

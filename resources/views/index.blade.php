@@ -17,6 +17,8 @@ use \App\Http\Controllers\EventController as EventCtrl;
 
 @include('layouts.header')
 
+<div id="toggleFilter" onclick="toggleFilter()"><i class="fas fa-list"></i></div>
+
 <div class="filter bayangan-5 p-2 rounded">
     <div>
         <input type="hidden" value="{{ $filter }}" id="filter">
@@ -78,6 +80,24 @@ use \App\Http\Controllers\EventController as EventCtrl;
     
 <script src="{{ asset('js/masonry.pkgd.min.js') }}"></script>
 <script>
+let isFilterOpened = false
+
+const closeFiler = () => {
+    document.querySelector(".filter").style.top = "-100%"
+    isFilterOpened = false
+}
+const openFilter = () => {
+    document.querySelector(".filter").style.top = "65px"
+    isFilterOpened = true
+}
+const toggleFilter = () => {
+    if(isFilterOpened) {
+        closeFiler()
+    }else {
+        openFilter()
+    }
+}
+
 const filter = JSON.parse(document.querySelector("#filter").value)
 const redirectFilter = (filter) => {
     let pattern = ""

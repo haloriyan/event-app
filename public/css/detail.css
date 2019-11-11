@@ -13,3 +13,15 @@
     top: 130px;right: 5%;
     width: 30%;
 }
+
+@media (max-width: 480px) {
+    .container {
+        position: static;
+        margin-top: 85px;
+    }
+    .container .cover { height: 250px; }
+    .kanan {
+        position: static;
+        width: 100%;
+    }
+}

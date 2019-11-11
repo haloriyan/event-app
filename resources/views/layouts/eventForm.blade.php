@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('fw/fontawesome-all.min.css') }}">
     @yield('additional.dependencies')
+    <style>
+        @media (max-width: 480px) {
+            .lebar-40 {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 

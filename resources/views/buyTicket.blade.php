@@ -7,6 +7,11 @@
     <title>Buy Ticket for {{ $event->title }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('fw/fontawesome-all.min.css') }}">
+    <style>
+        @media (max-width: 480px) {
+            .lebar-70 { width: 95%; }
+        }
+    </style>
 </head>
 <body>
     

@@ -28,7 +28,7 @@
     <a href="{{ route('user.tickets') }}">
         <li class="{{ (Route::currentRouteName() == 'user.tickets') ? 'active' : 'none' }}">
             <div class="icon"><i class="fas fa-tags"></i></div>
-            <span>My Tickets</span>
+            <span>My Purchases</span>
         </li>
     </a>
     <a href="{{ route('user.payments') }}">
@@ -56,6 +56,38 @@
 </div>
 
 <script src="{{ asset('js/embo.js') }}"></script>
+<script src="{{ asset('js/swipe.js') }}"></script>
+<script>
+const openMenu = () => {
+    $(".menu").pengaya("left: 0%")
+}
+const closeMenu = () => {
+    $(".menu").pengaya("left: -100%")
+}
+
+const handleGesture = () => {
+    if (touchEndX < touchStartX) {
+        closeMenu()
+    }
+    if (touchEndX > touchStartX) {
+        openMenu()
+    }
+}
+
+// bind table
+let table = document.querySelector('table')
+if(table) {
+    // let parentTable = table.parentElement
+    // let areaForTable = document.createElement('div')
+    
+    // areaForTable.style.overflow = "auto"
+    // areaForTable.style.width = "100%"
+    // areaForTable.appendChild(table)
+    // parentTable.innerHTML = ""
+    // parentTable.appendChild(areaForTable)
+}
+</script>
+
 @yield('javascript')
 
 </body>

@@ -5,6 +5,7 @@
     <h1>{{ $event->title }} Guests</h1>
     <div class="bg-putih rounded bayangan-5 p-2">
         <input type="text" v-model="search" class="box mb-2" placeholder="Search name...">
+        <div class="teks-transparan"><a href="{{ route('scan') }}" target="_blank">or scan QR Code</a></div>
     </div>
     <div v-for="ticket in filteredList">
         <h2>@{{ ticket.name }}</h2>
@@ -70,7 +71,6 @@
                 })
             },
             getTicketsData() {
-                console.log('getting data')
                 axios.get('{{ route("event.guestsData", $event->id) }}', {
                     ret: 'api'
                 })

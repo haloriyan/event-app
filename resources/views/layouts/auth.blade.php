@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') | Event Kota</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        @media (max-width: 480px) {
+            .lebar-35 {
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
     

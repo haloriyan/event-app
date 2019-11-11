@@ -14,6 +14,34 @@
 
 @include('layouts.header')
 
+<div class="container">
+    <div class="bg-putih bayangan-5 mb-5">
+        <div class="cover" style="background: url({{ asset('storage/cover/'.$event->cover) }})"></div>
+        <div class="wrap pb-2">
+            <h2>{{ $event->title }}</h2>
+            <p class="teks-kecil">oleh {{ $event->users->name }}</p>
+            <p class="mt-2">
+                {{ $event->description }}
+            </p>
+        </div>
+    </div>
+    <div class="bg-putih bayangan-5 mb-5 p-1">
+        <div class="wrap">
+            <h2>Contact Information</h2>
+            @foreach ($contact as $item)
+                @php
+                    $type = strtolower($item->type);
+                @endphp
+                <a href="{{ $item->value }}">
+                    <div class="bg-biru-transparan d-inline-block p-2    pl-3 pr-3 rounded-circle">
+                        <i class="fab fa-{{ $type }}"></i> &nbsp; {{ $item->type }}
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    </div>
+</div>
+
 <div class="kanan">
     @if ($haveTicket == 0)
         <a href="{{ route('event.ticket', $sluggedTitle) }}">
@@ -47,34 +75,6 @@
         <p>
             <i class="fas fa-map-marker"></i> &nbsp; {{ $event->address }}
         </p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="bg-putih bayangan-5 mb-5">
-        <div class="cover" style="background: url({{ asset('storage/cover/'.$event->cover) }})"></div>
-        <div class="wrap pb-2">
-            <h2>{{ $event->title }}</h2>
-            <p class="teks-kecil">oleh {{ $event->users->name }}</p>
-            <p class="mt-2">
-                {{ $event->description }}
-            </p>
-        </div>
-    </div>
-    <div class="bg-putih bayangan-5 mb-5 p-1">
-        <div class="wrap">
-            <h2>Contact Information</h2>
-            @foreach ($contact as $item)
-                @php
-                    $type = strtolower($item->type);
-                @endphp
-                <a href="{{ $item->value }}">
-                    <div class="bg-biru-transparan d-inline-block p-2    pl-3 pr-3 rounded-circle">
-                        <i class="fab fa-{{ $type }}"></i> &nbsp; {{ $item->type }}
-                    </div>
-                </a>
-            @endforeach
-        </div>
     </div>
 </div>
     

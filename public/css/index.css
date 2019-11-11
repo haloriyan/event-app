@@ -2,7 +2,7 @@
     position: fixed;
     top: 0px;left: 0px;right: 0px;
     line-height: 65px;
-    z-index: 1;
+    z-index: 2;
 }
 .atas .title {
     font-size: 22px;
@@ -61,4 +61,51 @@
     width: 20%;
     background-color: #fff;
     color: #444;
+}
+#toggleFilter { display: none; }
+
+@media (max-width: 480px) {
+    .atas .pencarian {
+        position: fixed;
+        top: 65px;left: 0px;right: 0px;
+        background-color: #fff;
+        padding: 10px;
+        width: 95%;
+        color: #444;
+        top: -50%;
+        transition: 0.4s;
+    }
+    .atas .pencarian .box {
+        margin: 0;
+        width: 82%;
+        background-color: #ecf0f1;
+    }
+    .atas .pencarian #cari { display: none; }
+    .container { left: 5%;right: 5%;top: 100px; }
+    .event {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+    #toggleFilter {
+        display: block;
+        position: fixed;
+        bottom: 5%;right: 6.5%;
+        width: 60px;
+        line-height: 60px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 120px;
+        background-color: #3498db;
+        color: #fff;
+        z-index: 1;
+    }
+    .filter {
+        position: fixed;
+        top: 63px;left: 0px;right: 0px;
+        z-index: 1;
+        width: 90%;
+        top: -100%;
+        transition: 0.4s;
+    }
+    #toggleSearch { margin-right: 5%;font-size: 20px; }
 }
